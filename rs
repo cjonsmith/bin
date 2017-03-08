@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+import sys
+import PIL
+from PIL import Image
+
+
+def help_message():
+    print('Usage: python resizer.py <image> <new-height>')
+
+def main():
+
+    if len(sys.argv) == 1 and sys.argv[1] == '-h' or len(sys.argv) < 3:
+        help_message()
+        exit(0)
+   
+    img = sys.argv[1].split('.')
+    file_name = img[0]
+    extension = img[1]
+
+    image = PIL.Image.open('{}.{}'.format(file_name, extension))
+    height = int(sys.argv[2])
+    
+    height_percent = height / image.size[1]
+
+    print('Old Dimension: {}'.format(image.size))
+    print('Image ratio: {}'.format(height_percent))
+
+    new_width = int(image.size[0] * height_percent)
+
+    print('New dimension: {}, {}'.format(new_width, height))
+
+    image = image.resize((new_width, height), PIL.Image.ANTIALIAS)
+    image.save('{}{}.{}'.format(file_name, str(height), extension))
+
+if __name__ == '__main__':
+    main()
