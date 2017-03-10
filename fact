@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+# From: https://www.youtube.com/watch?v=NYGI5xh4Llc
+w3m -cols 999999 -dump http://en.wikipedia.org/wiki/$(date +%B_%d) \
+	| sed -n '/Events/,/Births/ p' \
+	| sed -n 's/^.*• //p' \
+	| shuf -n 1

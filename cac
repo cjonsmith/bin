@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+# Short for cat-and-copy
+cat $1
+cat $1 | xclip -selection c

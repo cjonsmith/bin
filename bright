@@ -1,0 +1,3 @@
+#!/usr/bin/sh
+# CLI to change brightness. Needs root permissions to change.
+su -c "echo $1 >> /sys/class/backlight/intel_backlight/brightness"
