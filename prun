@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+processing-java --sketch=`pwd` --output=`pwd`"/.output-dir" --run;
+rm -r `pwd`"/.output-dir";
