@@ -1,0 +1,6 @@
+#!/bin/bash
+# Creates a note file with boilerplate code inside.
+# Note: This script assumes you have a NOTESDIR variable that points to the
+#       root directory of your notes.
+# TODO: Don't append to file if it already exists. Throw error instead.
+echo "<link rel='stylesheet' href='$(printf '../%.0s' {1..$(depth $NOTESDIR))shared/style.css'>" >> $1
