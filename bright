@@ -1,3 +1,7 @@
-#!/usr/bin/sh
+#!/usr/bin/env bash
 # CLI to change brightness. Needs root permissions to change.
-su -c "echo $1 >> /sys/class/backlight/intel_backlight/brightness"
+# Note that sudo does not use your path by default, so either use put this
+# script in your default path or use the `env` command line argument for
+# sudo.
+# (https://superuser.com/questions/1079272/custom-script-run-with-sudo-command-not-found)
+echo $1 >> /sys/class/backlight/intel_backlight/brightness
