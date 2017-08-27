@@ -12,13 +12,15 @@ RED="${e}[0;91m"
 YELLOW="${e}[0;93m"
 GREEN="${e}[0;92m"
 
+# Changed lines to have the same amount of whitespace at the end to format
+# nicely for certain programs, i.e. cowsay (with the -n option)
 echo
 echo -en $RED'-_-_-_-_-_-_-_'
-echo -e $RESET$BOLD',------,'$RESET
+echo -e $RESET$BOLD',------,    '$RESET
 echo -en $YELLOW'_-_-_-_-_-_-_-'
-echo -e $RESET$BOLD'|   /\_/\\'$RESET
+echo -e $RESET$BOLD'|   /\_/\\   '$RESET
 echo -en $GREEN'-_-_-_-_-_-_-'
-echo -e $RESET$BOLD'~|__( ^ .^)'$RESET
+echo -e $RESET$BOLD'~|__( ^ .^)  '$RESET
 echo -en $CYAN'-_-_-_-_-_-_-_-'
-echo -e $RESET$BOLD'""  ""'$RESET
+echo -e $RESET$BOLD'""  ""     '$RESET
 echo
