@@ -3,4 +3,13 @@
 # Note: This script assumes you have a NOTESDIR variable that points to the
 #       root directory of your notes.
 # TODO: Don't append to file if it already exists. Throw error instead.
-echo "<link rel='stylesheet' href='$(for (( i=1; i<=$(depth $NOTES_HOME); i++ )); do echo -n ../; done)shared/style.css'>" >> $1
+function pathToNotesHome {
+	for (( i=1; i<=$(depth $NOTES_HOME); i++ )); 
+		do echo -n ../; 
+	done
+}
+
+echo "<link rel='stylesheet' href='$(pathToNotesHome)shared/style.css'>" >> $1
+echo >> $1
+echo "<a href='$(pathToNotesHome)index.html'>Return to homepage.</a>" >> $1
+
