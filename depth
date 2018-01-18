@@ -1,5 +1,9 @@
-#!/bin/zsh
-# TODO: Change shebang to bash and add error note if it's an invalid version.
-# TODO: Have the script return a negative number if the file appears above
-#       the specified path.
-tr -dc "/" <<< "${$(pwd)#"$1"}" | wc -c
+#!/usr/bin/env bash
+function depth {
+	tr -dc "/" <<< $1 | wc -c
+}
+
+notes_depth=`depth $NOTES_HOME`
+curr_depth=`depth $1`
+
+expr $curr_depth - $notes_depth
