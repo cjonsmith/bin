@@ -1,0 +1,21 @@
+#!/usr/local/bin/python3
+"""Get the value of a JSON attribute."""
+import json
+import sys
+
+def json_value(deserialized_json, attribute):
+    """Returns the value of a specfied JSON parameter.
+
+    Keyword Arguments:
+    deserialized_json -- JSON object as string
+    attribute -- The attribute who's value should be returned.
+    """
+    json_object = json.loads(deserialized_json)
+    return json_object[attribute]
+
+def main(json_obj, attribute):
+    """The main method of the file."""
+    print(json_value(json_obj, attribute))
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])
