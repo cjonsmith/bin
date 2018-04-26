@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+# Play video as wallpaper..
+# Heavily inspired by: http://github.com/mitchweaver/bin
+#
+if [ $# -ne 1 ]; then
+    echo 1>&2 Usage: $0 [video-file]
+    exit 1
+fi
+
+xwinwrap -ni -fdt -sh rectangle -un -b -nf -ov -fs -- \
+mpv --wid WID --no-config --keepaspect=no --loop --no-border \
+    --vd-lavc-fast --gapless-audio=yes --really-quiet $1 > /dev/null &
