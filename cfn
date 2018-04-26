@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# cfn -- Change FileName
+#
+# Adds either a prefix or a suffix to files.
+#
+# Check for at least 3 options: 1 for prefix or suffix, 1 for the actual prefix
+# or suffix, and at least one for a file.
+if [[ $# -lt 3 ]] || [[ $1 != "--suffix" && $1 != "--prefix" ]]; then
+    echo Usage: cfn [--suffix] suffix [--prefix] prefix [file1, file2, ...]
+    exit 1
+fi
+
+prefix_or_suffix=$2
+files="${@:3}"
+
+for file in $files; do
+    dirname=$(dirname $file)
+    basename=$(basename $file)
+    extension="${basename##*.}"
+    filename="${basename%.*}"
+    if [[ $1 = "--prefix" ]]; then
+        mv $file "$dirname/$prefix_or_suffix$filename.$extension"
+    else
+        mv $file "$dirname/$filename$prefix_or_suffix.$extension"
+    fi
+done
