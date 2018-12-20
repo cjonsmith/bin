@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 # Short for cat-and-copy
 cat $1
-cat $1 | xclip -selection clip
+<$1 xclip -selection clip
