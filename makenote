@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Creates a note file with boilerplate code inside.
-# Note: This script assumes you have a NOTESDIR variable that points to the
+# Note: This script assumes you have a NOTES_HOME variable that points to the
 #       root directory of your notes.
 # TODO: Don't append to file if it already exists. Throw error instead.
 function pathToNotesHome {
