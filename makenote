@@ -2,7 +2,26 @@
 # Creates a note file with boilerplate code inside.
 # Note: This script assumes you have a NOTES_HOME variable that points to the
 #       root directory of your notes.
-# TODO: Don't append to file if it already exists. Throw error instead.
+
+# Check if $NOTES_HOME variable is set
+if [[ -z ${NOTES_HOME+x} ]]; then
+	echo 'No NOTES_HOME environment variable found!'
+	exit 1
+fi
+
+# Check if filename is supplied
+if [[ -z ${1+x} ]]; then
+	echo 'No filename provided!'
+	echo 'Usage: makenote <filename>'
+	exit 1
+fi
+
+# Check to make sure existing file is not changed
+if [[ -e $1 ]]; then
+	echo "$1 already exists!"
+	exit 1
+fi
+
 function pathToNotesHome {
 	for (( i=1; i<=$(depth $NOTES_HOME `pwd`); i++ )); 
 		do echo -n ../; 
