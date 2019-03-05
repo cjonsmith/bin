@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Worktimer.
 if [ ! -f $HOME/.timehelper.txt  ]; then
     echo "Hidden file timehelper.txt was not found!"

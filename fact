@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # From: https://www.youtube.com/watch?v=NYGI5xh4Llc
 # Make OSX compatible (after installing coreutils)
 if [[ `uname` == 'Darwin' ]]; then

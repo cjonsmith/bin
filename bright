@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # CLI to change brightness. Needs root permissions to change.
 # Note that sudo does not use your path by default, so either use put this
 # script in your default path or use the `env` command line argument for
