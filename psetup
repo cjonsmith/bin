@@ -1,4 +1,4 @@
-#/usr/bin/bash
+#/bin/sh
 sketch=$1
 mkdir `pwd`"/"$sketch
 touch `pwd`"/"$sketch"/"$sketch".pde"

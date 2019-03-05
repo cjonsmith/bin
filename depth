@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # `depth` takes two arguments: a root dir and a relative dir. It
 # returns the distance the relative dir is away from the root dir.
 
