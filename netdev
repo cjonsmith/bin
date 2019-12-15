@@ -1,0 +1,26 @@
+#!/bin/sh
+# netdev: List available network devices
+# Usage: netdev [-e|--enabled]
+enabled=''
+for i in "$@"
+do
+case $i in
+	-e|--enabled)
+	enabled='.*state UP.*'
+	;;
+	-h|--help)
+	echo 'netdev - List available network devices'
+	echo 'Usage: netdev [-e|--enabled]'
+	echo 'Flags:'
+	echo '  -e|--enabled\tOnly list enabled devices'
+	exit 0
+	;;
+	*)
+	echo 'Usage: netdev [-e|--enabled]'
+	exit 1
+	;;
+esac
+done
+
+ip link | awk -v enabled="$enabled" '/^[0-9]+\:'"$enabled"'/ { print substr($2, 1, length($2) - 1) }'
+
