@@ -1,0 +1,20 @@
+#!/bin/sh
+#/ myip - Shows IPv4 address of a specified network device
+#/
+#/ Usage: myip [-h|--help] <device>
+#/
+#/ Commonly used with `netdev` script:
+#/  bash: myip $(netdev -e)
+#/  fish: myip (netdev -e)
+for i in "$@"
+do
+case $i in
+	-h|--help)
+		grep ^\#\/ < "$0" | cut -c4-
+		exit 1
+	;;
+esac
+done
+
+ip address show $1 | awk '/inet [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+\/[0-9]+/ { print $2 }'
+

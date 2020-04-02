@@ -1,23 +1,25 @@
 #!/bin/sh
-# netdev: List available network devices
-# Usage: netdev [-e|--enabled]
+#/ netdev: List available network devices
+#/
+#/ Options:
+#/     -e|--enabled	Only list enabled devices
+#/
+#/ Usage: netdev [-e|--enabled]
 enabled=''
 for i in "$@"
 do
 case $i in
 	-e|--enabled)
 	enabled='.*state UP.*'
+	shift
 	;;
 	-h|--help)
-	echo 'netdev - List available network devices'
-	echo 'Usage: netdev [-e|--enabled]'
-	echo 'Flags:'
-	echo '  -e|--enabled\tOnly list enabled devices'
-	exit 0
+	grep ^\#\/ < "$0" | cut -c4-
+	exit 1
 	;;
 	*)
-	echo 'Usage: netdev [-e|--enabled]'
-	exit 1
+	echo "Unknown option: $1"
+	exit 2
 	;;
 esac
 done
