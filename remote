@@ -5,7 +5,7 @@
 #/   If no file is specified, then the repository's main page is opened.
 #/
 #/ Usage:
-#/   remote [file]
+#/   remote [files]
 set -e
 
 open=$(command -v open || command -v xdg-open)
@@ -16,24 +16,28 @@ for i in "$@"; do
 			grep ^\#\/ < "$0" | cut -c4-
 			exit 1
 		;;
-		*)
-			echo "Opening file on remote is currently unsupported" >&2
-			exit 1
-		;;
 	esac
 done
 
 remote=$(git remote -v | grep fetch | awk '{ print $2 }')
 case $remote in
 	https://*)
-		$open "$remote"
 		;;
 	git@*)
-		$open "$(echo "$remote" |\
-			awk 'BEGIN { FS = "[@:.]" } ; { print "https://"$2"."$3"/"$4 }')"
+		remote=$(echo "$remote" |\
+			awk 'BEGIN { FS = "[@:.]" } ; { print "https://"$2"."$3"/"$4 }')
 		;;
 	*)
 		echo "Unknown remote format" >&2
 		exit 1
 		;;
 esac
+
+[ "$#" -lt 1 ] && {
+	$open "$remote"
+	exit
+}
+
+for file in "$@"; do
+	$open "$remote/blob/$(git branch --show-current)/$file"
+done
