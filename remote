@@ -1,11 +1,11 @@
 #!/bin/sh
-#/ remote: Opens remote git repository in GitHub
+#/ remote: Opens remote git repository in your broswer
 #/
 #/ Description:
 #/   If no file is specified, then the repository's main page is opened.
 #/
 #/ Usage:
-#/   remote [files]
+#/   remote [-h|--help] [-b|--branch branch_name] ][file...]
 set -e
 
 open=$(command -v open || command -v xdg-open)
@@ -44,10 +44,12 @@ case $remote in
 esac
 
 [ "$#" -lt 1 ] && {
-    $open "$remote"
+    $open "$remote/tree/$branch"
     exit
 }
 
 for file in "$@"; do
-    $open "$remote/blob/$(git branch --show-current)/$file"
+	repository_root=$(basename $(git rev-parse --show-toplevel))
+	path=$(pwd | sed "s/.*\/$repository_root\/\(.*\)/\1/")
+    $open "$remote/blob/$branch/$path/$file"
 done
