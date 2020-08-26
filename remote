@@ -9,15 +9,25 @@
 set -e
 
 open=$(command -v open || command -v xdg-open)
-
+branch="$(git branch --show-current)"
 for i in "$@"; do
     case $i in
         -h|--help)
             grep ^\#\/ < "$0" | cut -c4-
             exit 1
-        ;;
+			;;
+		-b|--branch)
+			branch="$2"
+			shift; shift
+			;;
     esac
 done
+
+git ls-remote --heads --exit-code origin $branch || {
+	default_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+	echo "WARN: Branch '$branch' was not found on the origin repo, defaulting to $default_branch"
+	branch=$default_branch
+}
 
 remote=$(git remote -v | grep fetch | awk '{ print $2 }')
 case $remote in
