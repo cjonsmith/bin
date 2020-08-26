@@ -11,33 +11,33 @@ set -e
 open=$(command -v open || command -v xdg-open)
 
 for i in "$@"; do
-	case $i in
-		-h|--help)
-			grep ^\#\/ < "$0" | cut -c4-
-			exit 1
-		;;
-	esac
+    case $i in
+        -h|--help)
+            grep ^\#\/ < "$0" | cut -c4-
+            exit 1
+        ;;
+    esac
 done
 
 remote=$(git remote -v | grep fetch | awk '{ print $2 }')
 case $remote in
-	https://*)
-		;;
-	git@*)
-		remote=$(echo "$remote" |\
-			awk 'BEGIN { FS = "[@:.]" } ; { print "https://"$2"."$3"/"$4 }')
-		;;
-	*)
-		echo "Unknown remote format" >&2
-		exit 1
-		;;
+    https://*)
+        ;;
+    git@*)
+        remote=$(echo "$remote" |\
+            awk 'BEGIN { FS = "[@:.]" } ; { print "https://"$2"."$3"/"$4 }')
+        ;;
+    *)
+        echo "Unknown remote format" >&2
+        exit 1
+        ;;
 esac
 
 [ "$#" -lt 1 ] && {
-	$open "$remote"
-	exit
+    $open "$remote"
+    exit
 }
 
 for file in "$@"; do
-	$open "$remote/blob/$(git branch --show-current)/$file"
+    $open "$remote/blob/$(git branch --show-current)/$file"
 done
