@@ -18,31 +18,31 @@ for i in "$@"; do
         -h|--help)
             grep ^\#\/ < "$0" | cut -c4-
             exit 1
-			;;
-		-b|--branch)
-			branch="$2"
-			shift; shift
-			;;
-		-s|--start-line)
-			start_line="$2"
-			shift; shift
-			;;
-		-e|--end-line)
-			end_line="$2"
-			shift; shift
-			;;
+            ;;
+        -b|--branch)
+            branch="$2"
+            shift; shift
+            ;;
+        -s|--start-line)
+            start_line="$2"
+            shift; shift
+            ;;
+        -e|--end-line)
+            end_line="$2"
+            shift; shift
+            ;;
     esac
 done
 
 [ -n "$end_line" ] && [ -z "$start_line" ] && {
-	echo "Endline specified without a startline!"
-	exit 1
+    echo "Endline specified without a startline!"
+    exit 1
 }
 
 git ls-remote --heads --exit-code origin "$branch" >/dev/null || {
-	default_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
-	echo "WARN: Branch '$branch' was not found on the origin repo, defaulting to $default_branch"
-	branch=$default_branch
+    default_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+    echo "WARN: Branch '$branch' was not found on the origin repo, defaulting to $default_branch"
+    branch=$default_branch
 }
 
 remote=$(git remote -v | grep fetch | awk '{ print $2 }')
@@ -66,16 +66,16 @@ esac
 
 break_early=false
 [ -n "$start_line" ] && [ "$#" -gt 1 ] && {
-	echo "WARN: Multiple files specified when using '-s|--start-line' flag; defaulting to only opening the first file."
-	break_early=true
+    echo "WARN: Multiple files specified when using '-s|--start-line' flag; defaulting to only opening the first file."
+    break_early=true
 }
 
 for file in "$@"; do
-	repository_root=$(basename $(git rev-parse --show-toplevel))
-	path=$(pwd | sed "s/.*\/$repository_root\/\{0,1\}\(.*\)/\1/")
-	line_range=""
-	[ -n "$start_line" ] && line_range="$line_range#L$start_line"
-	[ -n "$end_line" ] && line_range="$line_range-L$end_line"
+    repository_root=$(basename $(git rev-parse --show-toplevel))
+    path=$(pwd | sed "s/.*\/$repository_root\/\{0,1\}\(.*\)/\1/")
+    line_range=""
+    [ -n "$start_line" ] && line_range="$line_range#L$start_line"
+    [ -n "$end_line" ] && line_range="$line_range-L$end_line"
     $open "$remote/blob/$branch/$path/$file$line_range"
-	$break_early && exit
+    $break_early && exit
 done
